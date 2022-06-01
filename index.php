@@ -23,6 +23,7 @@ $router->map('GET', '/people/get/[i:id]', function (int $id) {
     $people = new PeopleController();
     $people->getById($id);
 });
+
 $router->map('GET', '/people/post', function() {
     $people = new PeopleController();
     $people->post();
@@ -34,8 +35,8 @@ $router->map('GET', '/people/put/[i:id]', function (int $id) {
 });
 
 $router->map('GET', '/people/delete/[i:id]', function (int $id) {
-    // in progress.
-    echo 'people/delete/'. $id;
+    $people = new PeopleController();
+    $people->delete($id);
 });
 
 $router->map('GET', '/invoices/get/all', function () {

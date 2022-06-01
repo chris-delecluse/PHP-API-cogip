@@ -13,6 +13,14 @@ class DeleteModel
         $this->db = Database::getConnected();
     }
 
+    public function removePeopleById(int $id): bool
+    {
+        $sql = "delete from people where Id_People = $id";
+
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute();
+    }
+
     public function removeCompanyById(int $id): bool
     {
         $sql = "delete from companies where CompaniesId = $id";

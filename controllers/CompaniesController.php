@@ -2,11 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Models\Crud\CreateModel;
 use App\Models\Crud\DeleteModel;
 use App\Models\Crud\ReadModel;
 
 class CompaniesController
 {
+    private CreateModel $createSQL;
     private ReadModel $readSQL;
     private DeleteModel $deleteSQL;
 
@@ -14,6 +16,7 @@ class CompaniesController
     {
         $this->readSQL = new ReadModel();
         $this->deleteSQL = new DeleteModel();
+        $this->createSQL = new CreateModel();
     }
 
     public function get(): void
@@ -28,6 +31,13 @@ class CompaniesController
         echo json_encode($response, JSON_PRETTY_PRINT);
     }
 
+    public function post(): void
+    {
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
+
     public function delete(int $id): void
     {
         if ($this->deleteSQL->removeCompanyById($id)) {
@@ -38,7 +48,7 @@ class CompaniesController
         } else {
             $response = [
                 'status' => 0,
-                'message' => 'company delete has fail'
+                'message' => 'error: delete has fail'
             ];
         }
 

@@ -2,18 +2,21 @@
 
 namespace App\Controllers;
 
+use App\Models\Crud\CreateModel;
 use App\Models\Crud\ReadModel;
 
 class PeopleController
 {
+    private CreateModel $createSQL;
     private ReadModel $readSQL;
 
     public function __construct()
     {
         $this->readSQL = new ReadModel();
+        $this->createSQL = new CreateModel();
     }
 
-    public function index(): void
+    public function getAll(): void
     {
         $response = [];
 
@@ -25,7 +28,7 @@ class PeopleController
         echo json_encode($response, JSON_PRETTY_PRINT);
     }
 
-    public function show(int $id): void
+    public function getById(int $id): void
     {
         $response = [];
 
@@ -35,5 +38,23 @@ class PeopleController
 
         header('Content-Type: application/json');
         echo json_encode($response, JSON_PRETTY_PRINT);
+    }
+
+    public function post(): void
+    {
+        if ($this->createSQL->createPeople()) {
+            $response = [
+                'status' => 1,
+                'message' => 'company added successfully'
+            ];
+        } else {
+            $response = [
+                'status' => 0,
+                'message ' => 'error: adding has fail'
+            ];
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
 }

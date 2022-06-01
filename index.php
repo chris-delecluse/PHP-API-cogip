@@ -16,16 +16,16 @@ $router->map('GET', '/', function () {
 
 $router->map('GET', '/people/get/all', function () {
     $people = new PeopleController();
-    $people->index();
+    $people->getAll();
 });
 
 $router->map('GET', '/people/get/[i:id]', function (int $id) {
     $people = new PeopleController();
-    $people->show($id);
+    $people->getById($id);
 });
 $router->map('GET', '/people/post', function() {
-    // in progress.
-    echo 'people/post';
+    $people = new PeopleController();
+    $people->post();
 });
 
 $router->map('GET', '/people/put/[i:id]', function (int $id) {
@@ -74,8 +74,8 @@ $router->map('GET', '/company/get/[i:id]', function (int $id) {
 });
 
 $router->map('GET', '/company/post', function () {
-    // in progress.
-    echo 'company/post';
+    $company = new CompaniesController();
+    $company->post();
 });
 
 $router->map('GET', '/company/put/[i:id]', function (int $id) {

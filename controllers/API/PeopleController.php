@@ -74,7 +74,7 @@ class PeopleController
 
     public function delete(int $id): void
     {
-        if ($this->deleteSQL->removePeopleById($id)) {
+        if ($this->peopleAlreadyExist($id) && $this->deleteSQL->removePeopleById($id)) {
             $response = [
                 'status' => 0,
                 'message' => 'people delete successfully'
@@ -82,7 +82,7 @@ class PeopleController
         } else {
             $response = [
                 'status' => 0,
-                'message' => 'error: delete has fail'
+                'message' => 'error: id do not match'
             ];
 
             http_response_code(500);
@@ -90,5 +90,14 @@ class PeopleController
 
         header('Content-Type: application/json');
         echo json_encode($response);
+    }
+
+    private function peopleAlreadyExist(int $id): bool
+    {
+        if (!is_null($this->readSQL->getAllPeopleById($id)[0]['Id_People'])) {
+            return true;
+        }
+
+        return false;
     }
 }

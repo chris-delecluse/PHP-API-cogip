@@ -8,6 +8,8 @@ use App\Controllers\NotFoundController;
 
 require 'vendor/autoload.php';
 
+error_reporting(0);
+
 $router = new AltoRouter();
 
 $router->map('GET', '/', function () {

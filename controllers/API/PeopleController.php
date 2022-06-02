@@ -76,7 +76,7 @@ class PeopleController
     {
         if ($this->peopleAlreadyExist($id) && $this->deleteSQL->removePeopleById($id)) {
             $response = [
-                'status' => 0,
+                'status' => 1,
                 'message' => 'people delete successfully'
             ];
         } else {

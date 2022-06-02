@@ -1,9 +1,10 @@
 <?php
 
-use App\Controllers\CompaniesController;
+use App\Controllers\API\CompaniesController;
+use App\Controllers\API\InvoicesController;
+use App\Controllers\API\PeopleController;
 use App\Controllers\HomeController;
-use App\Controllers\InvoicesController;
-use App\Controllers\PeopleController;
+use App\Controllers\NotFoundController;
 
 require 'vendor/autoload.php';
 
@@ -93,4 +94,8 @@ $match = $router->match();
 
 if ($match !== false) {
     call_user_func_array($match['target'], $match['params']);
+} else {
+    http_response_code(404);
+    $notFound = new NotFoundController();
+    $notFound->index();
 }

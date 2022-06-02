@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\API;
 
 use App\Models\Crud\CreateModel;
 use App\Models\Crud\DeleteModel;

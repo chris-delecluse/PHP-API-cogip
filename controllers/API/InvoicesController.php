@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\API;
 
 use App\Models\Crud\ReadModel;
 
@@ -31,6 +31,15 @@ class InvoicesController
 
         foreach ($this->readSQL->getAllInvoicesById($id) as $item) {
             $response[] = $item;
+        }
+
+        if (empty($response)) {
+            $response = [
+                'status' => 0,
+                'message' => 'error: id not match !'
+            ];
+
+            http_response_code(500);
         }
 
         header('Content-Type: application/json');

@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-class HomeController
+class HomeController extends Controller
 {
     public function index(): void
     {
-        echo 'welcome to my api website';
+        require $this->view('index');
     }
 }

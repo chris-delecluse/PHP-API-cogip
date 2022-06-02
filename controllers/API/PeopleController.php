@@ -64,6 +64,8 @@ class PeopleController
                 'status' => 0,
                 'message ' => 'error: adding has fail'
             ];
+
+            http_response_code(500);
         }
 
         header('Content-Type: application/json');
@@ -82,6 +84,8 @@ class PeopleController
                 'status' => 0,
                 'message' => 'error: delete has fail'
             ];
+
+            http_response_code(500);
         }
 
         header('Content-Type: application/json');

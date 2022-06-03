@@ -7,7 +7,7 @@ use App\Models\Request;
 
 class CreateModel
 {
-    private \PDO $db;
+    private string|\PDO $db;
 
     public function __construct()
     {
@@ -16,10 +16,10 @@ class CreateModel
 
     public function createPeople(): bool
     {
-        $firstname = Request::get()['firstname'];
-        $lastname = Request::get()['lastname'];
-        $email = Request::get()['email'];
-        $phone = Request::get()['phone'];
+        $firstname = Request::post()['firstname'];
+        $lastname = Request::post()['lastname'];
+        $email = Request::post()['email'];
+        $phone = Request::post()['phone'];
 
         $sql = "insert into people (Id_Company, firstname, lastname, email, Phone)
                 values (:id_company, :firstname, :lastname, :email, :phone)";
@@ -36,10 +36,10 @@ class CreateModel
 
     public function createCompany(): bool
     {
-        $idType = Request::get()['idType'];
-        $companyName = Request::get()['companyName'];
-        $country = Request::get()['country'];
-        $vatNumber = Request::get()['vatNumber'];
+        $idType = Request::post()['idType'];
+        $companyName = Request::post()['companyName'];
+        $country = Request::post()['country'];
+        $vatNumber = Request::post()['vatNumber'];
 
         $sql = "insert into companies (Id_Type, company_name, country, vat_number)
                 values (:id_type, :name, :country, :vat)";

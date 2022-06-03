@@ -29,7 +29,7 @@ class InvoicesController
     {
         $response = [];
 
-        foreach ($this->readSQL->getAllInvoicesById($id) as $item) {
+        foreach ($this->readSQL->getInvoiceById($id) as $item) {
             $response[] = $item;
         }
 

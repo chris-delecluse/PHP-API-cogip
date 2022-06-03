@@ -19,12 +19,31 @@ class CompaniesController
         $this->createSQL = new CreateModel();
     }
 
-    public function get(): void
+    public function getAll(): void
     {
         $response = [];
 
         foreach ($this->readSQL->getAllCompanies() as $item) {
             $response[] = $item;
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($response, JSON_PRETTY_PRINT);
+    }
+
+    public function getById(int $id): void
+    {
+        $response = [];
+
+        foreach ($this->readSQL->getCompanyById($id) as $item) {
+            $response[] = $item;
+        }
+
+        if (empty($response)) {
+            $response = [
+                'status' => 0,
+                'message' => 'error: id not match !'
+            ];
         }
 
         header('Content-Type: application/json');

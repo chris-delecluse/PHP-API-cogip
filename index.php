@@ -8,7 +8,7 @@ use App\Controllers\NotFoundController;
 
 require 'vendor/autoload.php';
 
-error_reporting(0);
+//error_reporting(0);
 
 $router = new AltoRouter();
 
@@ -33,8 +33,8 @@ $router->map('GET', '/people/post', function() {
 });
 
 $router->map('GET', '/people/put/[i:id]', function (int $id) {
-    // in progress.
-    echo 'people/put/'. $id;
+    $people = new PeopleController();
+    $people->put($id);
 });
 
 $router->map('GET', '/people/delete/[i:id]', function (int $id) {
@@ -69,12 +69,12 @@ $router->map('GET', '/invoice/delete/[i:id]', function (int $id) {
 
 $router->map('GET', '/companies/get/all', function () {
     $companies = new CompaniesController();
-    $companies->get();
+    $companies->getAll();
 });
 
 $router->map('GET', '/company/get/[i:id]', function (int $id) {
-    // in progress.
-    echo 'company/get/'. $id;
+    $company = new CompaniesController();
+    $company->getById($id);
 });
 
 $router->map('GET', '/company/post', function () {

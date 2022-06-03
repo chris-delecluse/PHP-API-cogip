@@ -5,18 +5,21 @@ namespace App\Controllers\API;
 use App\Models\Crud\CreateModel;
 use App\Models\Crud\DeleteModel;
 use App\Models\Crud\ReadModel;
+use App\Models\Crud\UpdateModel;
 
 class CompaniesController
 {
     private CreateModel $createSQL;
     private ReadModel $readSQL;
+    private UpdateModel $updateSQL;
     private DeleteModel $deleteSQL;
 
     public function __construct()
     {
-        $this->readSQL = new ReadModel();
-        $this->deleteSQL = new DeleteModel();
         $this->createSQL = new CreateModel();
+        $this->readSQL = new ReadModel();
+        $this->updateSQL = new UpdateModel();
+        $this->deleteSQL = new DeleteModel();
     }
 
     public function getAll(): void
@@ -52,6 +55,19 @@ class CompaniesController
 
     public function post(): void
     {
+        if ($this->createSQL->createCompany()) {
+            $response = [
+                'status' => 1,
+                'message' => 'company added successfully'
+            ];
+        } else {
+            $response = [
+                'status' => 0,
+                'message ' => 'error: adding has fail'
+            ];
+
+            http_response_code(500);
+        }
 
         header('Content-Type: application/json');
         echo json_encode($response);
@@ -59,7 +75,22 @@ class CompaniesController
 
     public function put(int $id): void
     {
+        if ($this->companyAlreadyExist($id) && $this->updateSQL->updateCompanyById($id)) {
+            $response = [
+                'status' => 1,
+                'message' => 'update company successfully'
+            ];
+        } else {
+            $response = [
+                'status' => 0,
+                'message' => 'error: update has fail cannot found this id'
+            ];
 
+            http_response_code(500);
+        }
+
+        header('Content-type: application/json');
+        echo json_encode($response, JSON_PRETTY_PRINT);
     }
 
     public function delete(int $id): void
@@ -80,5 +111,14 @@ class CompaniesController
 
         header('Content-Type: application/json');
         echo json_encode($response);
+    }
+
+    private function companyAlreadyExist(int $id): bool
+    {
+        if (!is_null($this->readSQL->getCompanyById($id)[0]['CompaniesId'])) {
+            return true;
+        }
+
+        return false;
     }
 }

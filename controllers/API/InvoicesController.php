@@ -2,15 +2,24 @@
 
 namespace App\Controllers\API;
 
+use App\Models\Crud\CreateModel;
+use App\Models\Crud\DeleteModel;
 use App\Models\Crud\ReadModel;
+use App\Models\Crud\UpdateModel;
 
 class InvoicesController
 {
+    private CreateModel $createSQL;
     private ReadModel $readSQL;
+    private UpdateModel $updateSQL;
+    private DeleteModel $deleteSQL;
 
     public function __construct()
     {
+        $this->createSQL = new CreateModel();
         $this->readSQL = new ReadModel();
+        $this->updateSQL = new UpdateModel();
+        $this->deleteSQL = new DeleteModel();
     }
 
     public function getAll(): void
@@ -48,16 +57,70 @@ class InvoicesController
 
     public function post(): void
     {
+        if ($this->createSQL->createInvoice()) {
+            $response = [
+                'status' => 1,
+                'message' => 'invoice added successfully'
+            ];
+        } else {
+            $response = [
+                'status' => 0,
+                'message ' => 'error: adding has fail'
+            ];
 
+            http_response_code(500);
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
 
     public function put(int $id): void
     {
+        if ($this->invoiceAlreadyExist($id) && $this->updateSQL->updateInvoiceById($id)) {
+            $response = [
+                'status' => 1,
+                'message' => 'update invoice successfully'
+            ];
+        } else {
+            $response = [
+                'status' => 0,
+                'message' => 'error: update has fail cannot found this id'
+            ];
 
+            http_response_code(500);
+        }
+
+        header('Content-type: application/json');
+        echo json_encode($response, JSON_PRETTY_PRINT);
     }
 
     public function delete(int $id): void
     {
+        if ($this->invoiceAlreadyExist($id) && $this->deleteSQL->removeInvoiceById($id)) {
+            $response = [
+                'status' => 1,
+                'message' => 'invoice delete successfully'
+            ];
+        } else {
+            $response = [
+                'status' => 0,
+                'message' => 'error: id do not match'
+            ];
 
+            http_response_code(500);
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
+
+    private function invoiceAlreadyExist(int $id): bool
+    {
+        if (!is_null($this->readSQL->getInvoiceById($id)[0]['Id_Invoice'])) {
+            return true;
+        }
+
+        return false;
     }
 }

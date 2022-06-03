@@ -60,7 +60,7 @@ class PeopleController
         if ($this->createSQL->createPeople()) {
             $response = [
                 'status' => 1,
-                'message' => 'company added successfully'
+                'message' => 'people added successfully'
             ];
         } else {
             $response = [

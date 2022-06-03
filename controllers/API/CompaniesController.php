@@ -57,6 +57,11 @@ class CompaniesController
         echo json_encode($response);
     }
 
+    public function put(int $id): void
+    {
+
+    }
+
     public function delete(int $id): void
     {
         if ($this->deleteSQL->removeCompanyById($id)) {

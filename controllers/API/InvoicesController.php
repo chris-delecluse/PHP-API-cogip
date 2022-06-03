@@ -45,4 +45,19 @@ class InvoicesController
         header('Content-Type: application/json');
         echo json_encode($response, JSON_PRETTY_PRINT);
     }
+
+    public function post(): void
+    {
+
+    }
+
+    public function put(int $id): void
+    {
+
+    }
+
+    public function delete(int $id): void
+    {
+
+    }
 }

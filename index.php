@@ -88,8 +88,8 @@ $router->map('GET', '/company/put/[i:id]', function (int $id) {
 });
 
 $router->map('GET', '/company/delete/[i:id]', function (int $id) {
-    $companies = new CompaniesController();
-    $companies->delete($id);
+    $company = new CompaniesController();
+    $company->delete($id);
 });
 
 $match = $router->match();

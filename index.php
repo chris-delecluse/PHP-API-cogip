@@ -8,7 +8,7 @@ use App\Controllers\NotFoundController;
 
 require 'vendor/autoload.php';
 
-//error_reporting(0);
+error_reporting(0);
 
 $router = new AltoRouter();
 
@@ -44,27 +44,27 @@ $router->map('GET', '/people/delete/[i:id]', function (int $id) {
 
 $router->map('GET', '/invoices/get/all', function () {
     $invoices = new InvoicesController();
-    $invoices->index();
+    $invoices->getAll();
 });
 
 $router->map('GET', '/invoice/get/[i:id]', function (int $id) {
-    $invoices = new InvoicesController();
-    $invoices->show($id);
+    $invoice = new InvoicesController();
+    $invoice->getById($id);
 });
 
 $router->map('GET', '/invoice/post', function () {
-    // in progress.
-    echo 'invoice/post';
+    $invoice = new InvoicesController();
+    $invoice->post();
 });
 
 $router->map('GET', '/invoice/put/[i:id]', function (int $id) {
-    // in progress.
-    echo 'invoice/put/'. $id;
+    $invoice = new InvoicesController();
+    $invoice->put($id);
 });
 
 $router->map('GET', '/invoice/delete/[i:id]', function (int $id) {
-    // in progress.
-    echo 'invoice/delete/'. $id;
+    $invoice = new InvoicesController();
+    $invoice->delete($id);
 });
 
 $router->map('GET', '/companies/get/all', function () {
@@ -83,8 +83,8 @@ $router->map('GET', '/company/post', function () {
 });
 
 $router->map('GET', '/company/put/[i:id]', function (int $id) {
-    // in progress.
-    echo 'company/put/'. $id;
+    $company = new CompaniesController();
+    $company->put($id);
 });
 
 $router->map('GET', '/company/delete/[i:id]', function (int $id) {

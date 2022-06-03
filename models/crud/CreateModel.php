@@ -52,4 +52,23 @@ class CreateModel
             'vat' => $vatNumber
         ]);
     }
+
+    public function createInvoice(): bool
+    {
+        $companyId = Request::post()['companyId'];
+        $peopleId = Request::post()['peopleId'];
+        $numberInvoice = Request::post()['numberInvoice'];
+        $date = Request::post()['date'];
+
+        $sql = "insert into invoices (Id_Company, Id_People, number_invoice, date)
+                values (:companyId, :peopleId, :numberInvoice, :date)";
+
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            'companyId' => $companyId,
+            'peopleId' => $peopleId,
+            'numberInvoice' => $numberInvoice,
+            'date' => $date
+        ]);
+    }
 }

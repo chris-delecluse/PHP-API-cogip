@@ -28,4 +28,12 @@ class DeleteModel
         $stmt = $this->db->prepare($sql);
         return $stmt->execute();
     }
+
+    public function removeInvoiceById(int $id): bool
+    {
+        $sql = "delete from invoices where Id_Invoice = $id";
+
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute();
+    }
 }

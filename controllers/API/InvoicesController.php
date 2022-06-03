@@ -13,7 +13,7 @@ class InvoicesController
         $this->readSQL = new ReadModel();
     }
 
-    public function index(): void
+    public function getAll(): void
     {
         $response = [];
 
@@ -25,7 +25,7 @@ class InvoicesController
         echo json_encode($response, JSON_PRETTY_PRINT);
     }
 
-    public function show(int $id): void
+    public function getById(int $id): void
     {
         $response = [];
 

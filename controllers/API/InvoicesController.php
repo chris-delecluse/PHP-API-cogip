@@ -27,6 +27,10 @@ class InvoicesController
             $response[] = $item;
         }
 
+        if (!empty($response)) {
+            http_response_code(200);
+        }
+
         header('Content-Type: application/json');
         echo json_encode($response, JSON_PRETTY_PRINT);
     }
@@ -42,10 +46,12 @@ class InvoicesController
         if (empty($response)) {
             $response = [
                 'status' => 0,
-                'message' => 'error: id not match !'
+                'message' => 'error: cannot get this invoice, id do not exist !'
             ];
 
-            http_response_code(500);
+            http_response_code(204);
+        } else {
+            http_response_code(200);
         }
 
         header('Content-Type: application/json');
@@ -59,13 +65,15 @@ class InvoicesController
                 'status' => 1,
                 'message' => 'invoice added successfully'
             ];
+
+            http_response_code(201);
         } else {
             $response = [
                 'status' => 0,
-                'message ' => 'error: adding has fail'
+                'message ' => 'error: adding invoice has fail'
             ];
 
-            http_response_code(500);
+            http_response_code(404);
         }
 
         header('Content-Type: application/json');
@@ -79,13 +87,15 @@ class InvoicesController
                 'status' => 1,
                 'message' => 'invoice delete successfully'
             ];
+
+            http_response_code(200);
         } else {
             $response = [
                 'status' => 0,
-                'message' => 'error: id do not match'
+                'message' => 'error: cannot delete this invoice, id do not exist !'
             ];
 
-            http_response_code(500);
+            http_response_code(204);
         }
 
         header('Content-Type: application/json');

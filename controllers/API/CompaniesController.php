@@ -27,6 +27,10 @@ class CompaniesController
             $response[] = $item;
         }
 
+        if (!empty($response)) {
+            http_response_code(200);
+        }
+
         header('Content-Type: application/json');
         echo json_encode($response, JSON_PRETTY_PRINT);
     }
@@ -42,8 +46,12 @@ class CompaniesController
         if (empty($response)) {
             $response = [
                 'status' => 0,
-                'message' => 'error: id not match !'
+                'message' => 'error: cannot get this company, id do not exist !'
             ];
+
+            http_response_code(204);
+        } else {
+            http_response_code(200);
         }
 
         header('Content-Type: application/json');
@@ -57,13 +65,15 @@ class CompaniesController
                 'status' => 1,
                 'message' => 'company added successfully'
             ];
+
+            http_response_code(201);
         } else {
             $response = [
                 'status' => 0,
-                'message ' => 'error: adding has fail'
+                'message ' => 'error: adding company has fail'
             ];
 
-            http_response_code(500);
+            http_response_code(404);
         }
 
         header('Content-Type: application/json');
@@ -77,13 +87,15 @@ class CompaniesController
                 'status' => 0,
                 'message' => 'company delete successfully'
             ];
+
+            http_response_code(200);
         } else {
             $response = [
                 'status' => 0,
-                'message' => 'error: delete has fail'
+                'message' => 'error: cannot delete this company, id do not exist !'
             ];
 
-            http_response_code(500);
+            http_response_code(204);
         }
 
         header('Content-Type: application/json');

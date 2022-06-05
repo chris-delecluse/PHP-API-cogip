@@ -27,6 +27,10 @@ class PeopleController
             $response[] = $item;
         }
 
+        if (!empty($response)) {
+            http_response_code(200);
+        }
+
         header('Content-Type: application/json');
         echo json_encode($response, JSON_PRETTY_PRINT);
     }
@@ -42,10 +46,12 @@ class PeopleController
         if (empty($response)) {
             $response = [
                 'status' => 0,
-                'message' => 'error: id not match !'
+                'message' => 'error: cannot get this people, id do not exist !'
             ];
 
-            http_response_code(500);
+            http_response_code(204);
+        } else {
+            http_response_code(200);
         }
 
         header('Content-Type: application/json');
@@ -60,14 +66,14 @@ class PeopleController
                 'message' => 'people added successfully'
             ];
 
-            http_response_code(200);
+            http_response_code(201);
         } else {
             $response = [
                 'status' => 0,
-                'message ' => 'error: adding has fail'
+                'message ' => 'error: adding people has fail'
             ];
 
-            http_response_code(500);
+            http_response_code(404);
         }
 
         header("Content-Type: application/json; charset=UTF-8");
@@ -81,13 +87,15 @@ class PeopleController
                 'status' => 1,
                 'message' => 'people delete successfully'
             ];
+
+            http_response_code(200);
         } else {
             $response = [
                 'status' => 0,
-                'message' => 'error: id do not match'
+                'message' => 'error: cannot delete this people, id do not exist !'
             ];
 
-            http_response_code(500);
+            http_response_code(204);
         }
 
         header('Content-Type: application/json');

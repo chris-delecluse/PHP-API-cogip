@@ -95,7 +95,7 @@ class CompaniesController
 
     public function delete(int $id): void
     {
-        if ($this->deleteSQL->removeCompanyById($id)) {
+        if ($this->companyAlreadyExist($id) && $this->deleteSQL->removeCompanyById($id)) {
             $response = [
                 'status' => 0,
                 'message' => 'company delete successfully'

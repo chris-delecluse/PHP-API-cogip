@@ -16,17 +16,17 @@ class UpdateModel
 
     public function updatePeopleById(int $id): bool
     {
-        $firstname = Request::put()['firstname'];
-        $lastname = Request::put()['lastname'];
-        $email = Request::put()['email'];
-        $phone = Request::put()['phone'];
+        $firstname = Request::get()['firstname'];
+        $lastname = Request::get()['lastname'];
+        $email = Request::get()['email'];
+        $phone = Request::get()['phone'];
 
-        $sql = "update people as p set 
-                  firstname = $firstname,
-                  lastname = $lastname,
-                  email = $email,
+        $sql = "update people set 
+                  firstname = '$firstname',
+                  lastname = '$lastname',
+                  email = '$email',
                   Phone = $phone
-                where p.Id_People = $id";
+                where Id_People = $id";
 
         $stmt = $this->db->prepare($sql);
         return $stmt->execute();

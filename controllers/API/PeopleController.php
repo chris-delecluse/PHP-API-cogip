@@ -62,6 +62,8 @@ class PeopleController
                 'status' => 1,
                 'message' => 'people added successfully'
             ];
+
+            http_response_code(200);
         } else {
             $response = [
                 'status' => 0,
@@ -71,13 +73,13 @@ class PeopleController
             http_response_code(500);
         }
 
-        header('Content-Type: application/json');
+        header("Content-Type: application/json; charset=UTF-8");
         echo json_encode($response);
     }
 
     public function put(int $id): void
     {
-        if ($this->peopleAlreadyExist($id) && $this->updateSQL->updatePeopleById($id)) {
+        if ($this->updateSQL->updatePeopleById($id)) {
             $response = [
                 'status' => 1,
                 'message' => 'update people successfully'
@@ -91,7 +93,7 @@ class PeopleController
             http_response_code(500);
         }
 
-        header('Content-type: application/json');
+        header('Content-Type: application/json; charset=UTF-8');
         echo json_encode($response, JSON_PRETTY_PRINT);
     }
 

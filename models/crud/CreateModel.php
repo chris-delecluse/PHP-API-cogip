@@ -16,6 +16,7 @@ class CreateModel
 
     public function createPeople(): bool
     {
+        $companyId = Request::post()['companyId'];
         $firstname = Request::post()['firstname'];
         $lastname = Request::post()['lastname'];
         $email = Request::post()['email'];
@@ -26,7 +27,7 @@ class CreateModel
 
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
-            'id_company' => 0,
+            'id_company' => $companyId,
             'firstname' => $firstname,
             'lastname' => $lastname,
             'email' => $email,

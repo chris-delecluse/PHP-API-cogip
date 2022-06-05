@@ -15,12 +15,4 @@ class Request
     {
         return self::$data = $_GET;
     }
-
-    public static function put(): array
-    {
-        $_PUT = [];
-        parse_str(file_get_contents('php://input'), $_PUT);
-
-        return self::$data = $_PUT;
-    }
 }

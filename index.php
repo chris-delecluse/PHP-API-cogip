@@ -32,17 +32,12 @@ $router->map('POST', '/people/post', function() {
     $people->post();
 });
 
-$router->map('GET', '/people/put/[i:id]', function (int $id) {
-    $people = new PeopleController();
-    $people->put($id);
-});
-
 $router->map('GET', '/people/delete/[i:id]', function (int $id) {
     $people = new PeopleController();
     $people->delete($id);
 });
 
-$router->map('GET', '/invoices/get/all', function () {
+$router->map('GET', '/invoice/get/all', function () {
     $invoices = new InvoicesController();
     $invoices->getAll();
 });
@@ -57,17 +52,12 @@ $router->map('POST', '/invoice/post', function () {
     $invoice->post();
 });
 
-$router->map('POST', '/invoice/put/[i:id]', function (int $id) {
-    $invoice = new InvoicesController();
-    $invoice->put($id);
-});
-
 $router->map('GET', '/invoice/delete/[i:id]', function (int $id) {
     $invoice = new InvoicesController();
     $invoice->delete($id);
 });
 
-$router->map('GET', '/companies/get/all', function () {
+$router->map('GET', '/company/get/all', function () {
     $companies = new CompaniesController();
     $companies->getAll();
 });
@@ -80,11 +70,6 @@ $router->map('GET', '/company/get/[i:id]', function (int $id) {
 $router->map('POST', '/company/post', function () {
     $company = new CompaniesController();
     $company->post();
-});
-
-$router->map('POST', '/company/put/[i:id]', function (int $id) {
-    $company = new CompaniesController();
-    $company->put($id);
 });
 
 $router->map('GET', '/company/delete/[i:id]', function (int $id) {

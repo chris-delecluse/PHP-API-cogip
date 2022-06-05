@@ -5,20 +5,17 @@ namespace App\Controllers\API;
 use App\Models\Crud\CreateModel;
 use App\Models\Crud\DeleteModel;
 use App\Models\Crud\ReadModel;
-use App\Models\Crud\UpdateModel;
 
 class InvoicesController
 {
     private CreateModel $createSQL;
     private ReadModel $readSQL;
-    private UpdateModel $updateSQL;
     private DeleteModel $deleteSQL;
 
     public function __construct()
     {
         $this->createSQL = new CreateModel();
         $this->readSQL = new ReadModel();
-        $this->updateSQL = new UpdateModel();
         $this->deleteSQL = new DeleteModel();
     }
 
@@ -73,26 +70,6 @@ class InvoicesController
 
         header('Content-Type: application/json');
         echo json_encode($response);
-    }
-
-    public function put(int $id): void
-    {
-        if ($this->invoiceAlreadyExist($id) && $this->updateSQL->updateInvoiceById($id)) {
-            $response = [
-                'status' => 1,
-                'message' => 'update invoice successfully'
-            ];
-        } else {
-            $response = [
-                'status' => 0,
-                'message' => 'error: update has fail cannot found this id'
-            ];
-
-            http_response_code(500);
-        }
-
-        header('Content-type: application/json');
-        echo json_encode($response, JSON_PRETTY_PRINT);
     }
 
     public function delete(int $id): void

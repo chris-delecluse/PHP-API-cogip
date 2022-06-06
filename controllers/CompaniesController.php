@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\API;
+namespace App\Controllers;
 
 use App\Models\Crud\CreateModel;
 use App\Models\Crud\DeleteModel;
@@ -45,13 +45,11 @@ class CompaniesController
 
         if (empty($response)) {
             $response = [
-                'status' => 0,
-                'message' => 'error: cannot get this company, id do not exist !'
+                'error' => [
+                    'status' => 204,
+                    'message' => 'error: cannot get this company, this id do not exist !',
+                ],
             ];
-
-            http_response_code(204);
-        } else {
-            http_response_code(200);
         }
 
         header('Content-Type: application/json');
@@ -62,21 +60,21 @@ class CompaniesController
     {
         if ($this->createSQL->createCompany()) {
             $response = [
-                'status' => 1,
-                'message' => 'company added successfully'
+                'success' => [
+                    'status' => 201,
+                    'message' => 'people company successfully'
+                ],
             ];
-
-            http_response_code(201);
         } else {
             $response = [
-                'status' => 0,
-                'message ' => 'error: adding company has fail'
+                'error' => [
+                    'status' => 404,
+                    'message ' => 'error: adding company has fail'
+                ],
             ];
-
-            http_response_code(404);
         }
 
-        header('Content-Type: application/json');
+        header("Content-Type: application/json; charset=UTF-8");
         echo json_encode($response);
     }
 
@@ -84,18 +82,18 @@ class CompaniesController
     {
         if ($this->companyAlreadyExist($id) && $this->deleteSQL->removeCompanyById($id)) {
             $response = [
-                'status' => 0,
-                'message' => 'company delete successfully'
+                'success' => [
+                    'status' => 200,
+                    'message' => 'company delete successfully'
+                ],
             ];
-
-            http_response_code(200);
         } else {
             $response = [
-                'status' => 0,
-                'message' => 'error: cannot delete this company, id do not exist !'
+                'error' => [
+                    'status' => 204,
+                    'message' => 'error: cannot delete this company, id do not exist !'
+                ],
             ];
-
-            http_response_code(204);
         }
 
         header('Content-Type: application/json');

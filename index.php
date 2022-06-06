@@ -1,14 +1,14 @@
 <?php
 
-use App\Controllers\API\CompaniesController;
-use App\Controllers\API\InvoicesController;
-use App\Controllers\API\PeopleController;
+use App\Controllers\CompaniesController;
 use App\Controllers\HomeController;
+use App\Controllers\InvoicesController;
 use App\Controllers\NotFoundController;
+use App\Controllers\PeopleController;
 
 require 'vendor/autoload.php';
 
-//error_reporting(0);
+error_reporting(0);
 
 $router = new AltoRouter();
 

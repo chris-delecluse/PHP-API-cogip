@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\API;
+namespace App\Controllers;
 
 use App\Models\Crud\CreateModel;
 use App\Models\Crud\DeleteModel;
@@ -45,13 +45,11 @@ class InvoicesController
 
         if (empty($response)) {
             $response = [
-                'status' => 0,
-                'message' => 'error: cannot get this invoice, id do not exist !'
+                'error' => [
+                    'status' => 204,
+                    'message' => 'error: cannot get this invoice, this id do not exist !',
+                ],
             ];
-
-            http_response_code(204);
-        } else {
-            http_response_code(200);
         }
 
         header('Content-Type: application/json');
@@ -62,21 +60,21 @@ class InvoicesController
     {
         if ($this->createSQL->createInvoice()) {
             $response = [
-                'status' => 1,
-                'message' => 'invoice added successfully'
+                'success' => [
+                    'status' => 201,
+                    'message' => 'invoice created successfully'
+                ],
             ];
-
-            http_response_code(201);
         } else {
             $response = [
-                'status' => 0,
-                'message ' => 'error: adding invoice has fail'
+                'error' => [
+                    'status' => 404,
+                    'message ' => 'error: adding invoice has fail'
+                ],
             ];
-
-            http_response_code(404);
         }
 
-        header('Content-Type: application/json');
+        header("Content-Type: application/json; charset=UTF-8");
         echo json_encode($response);
     }
 
@@ -84,18 +82,18 @@ class InvoicesController
     {
         if ($this->invoiceAlreadyExist($id) && $this->deleteSQL->removeInvoiceById($id)) {
             $response = [
-                'status' => 1,
-                'message' => 'invoice delete successfully'
+                'success' => [
+                    'status' => 200,
+                    'message' => 'invoice delete successfully'
+                ],
             ];
-
-            http_response_code(200);
         } else {
             $response = [
-                'status' => 0,
-                'message' => 'error: cannot delete this invoice, id do not exist !'
+                'error' => [
+                    'status' => 204,
+                    'message' => 'error: cannot delete this invoice, id do not exist !'
+                ],
             ];
-
-            http_response_code(204);
         }
 
         header('Content-Type: application/json');

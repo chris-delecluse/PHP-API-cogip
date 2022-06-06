@@ -16,11 +16,11 @@ class CreateModel
 
     public function createPeople(): bool
     {
-        $companyId = Request::post()['companyId'];
-        $firstname = Request::post()['firstname'];
-        $lastname = Request::post()['lastname'];
-        $email = Request::post()['email'];
-        $phone = Request::post()['phone'];
+        $companyId = htmlspecialchars(Request::post()['companyId']);
+        $firstname =  htmlspecialchars(Request::post()['firstname']);
+        $lastname = htmlspecialchars(Request::post()['lastname']);
+        $email = htmlspecialchars(Request::post()['email']);
+        $phone = htmlspecialchars(Request::post()['phone']);
 
         $sql = "insert into people (Id_Company, firstname, lastname, email, Phone)
                 values (:id_company, :firstname, :lastname, :email, :phone)";
@@ -37,10 +37,10 @@ class CreateModel
 
     public function createCompany(): bool
     {
-        $idType = Request::post()['idType'];
-        $companyName = Request::post()['companyName'];
-        $country = Request::post()['country'];
-        $vatNumber = Request::post()['vatNumber'];
+        $idType = htmlspecialchars(Request::post()['idType']);
+        $companyName = htmlspecialchars(Request::post()['companyName']);
+        $country = htmlspecialchars(Request::post()['country']);
+        $vatNumber = htmlspecialchars(Request::post()['vatNumber']);
 
         $sql = "insert into companies (Id_Type, company_name, country, vat_number)
                 values (:id_type, :name, :country, :vat)";
@@ -56,10 +56,10 @@ class CreateModel
 
     public function createInvoice(): bool
     {
-        $companyId = Request::post()['companyId'];
-        $peopleId = Request::post()['peopleId'];
-        $numberInvoice = Request::post()['numberInvoice'];
-        $date = Request::post()['date'];
+        $companyId = htmlspecialchars(Request::post()['companyId']);
+        $peopleId = htmlspecialchars(Request::post()['peopleId']);
+        $numberInvoice = htmlspecialchars(Request::post()['numberInvoice']);
+        $date = htmlspecialchars(Request::post()['date']);
 
         $sql = "insert into invoices (Id_Company, Id_People, number_invoice, date)
                 values (:companyId, :peopleId, :numberInvoice, :date)";

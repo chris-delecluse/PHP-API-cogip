@@ -9,11 +9,11 @@ class HomeController extends Controller
      */
     public function index(): void
     {
-        echo $_SERVER['PHP_AUTH_DIGEST'];
+/*        echo $_SERVER['PHP_AUTH_DIGEST'];
 
         $token = bin2hex(random_bytes(64));
 
-        echo $token;
+        echo $token;*/
 
         require $this->view('index');
     }

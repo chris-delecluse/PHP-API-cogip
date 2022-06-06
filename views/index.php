@@ -1,8 +1,8 @@
 <?php $title = "home" ?>
 <?php ob_start() ?>
 
-    <main class="grid align-center w-full bg-[#081A2E]">
-        <div class="m-auto w-full h-full mb-24">
+    <main class="grid align-center bg-[#081A2E]">
+        <div class="m-auto w-5/6 h-full mb-24">
             <h1 class="text-center mt-10 mb-10 text-4xl text-white">Simple cogip API</h1>
             <div class="flex flex-col">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
